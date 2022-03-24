@@ -1,5 +1,5 @@
 export interface character {
   id: string;
-  name: {full: string};
-  image: {large: string};
+  name: string;
+  image_large: string;
 }

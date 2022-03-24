@@ -7,17 +7,15 @@ import {
   Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
-import getTopCharacters from './requests/getTopCharacters';
+import getCharacters from './requests/getCharacters';
 import {character} from './types';
 import {styles} from './styles';
 import {LinearGradient} from 'expo-linear-gradient';
 
 const DATA: character[] = [];
-var CUR_PAGE = 1;
 const updateData = async () =>
-  getTopCharacters(CUR_PAGE).then((characters) => {
+  getCharacters().then((characters: character[]) => {
     DATA.push(...characters);
-    CUR_PAGE++;
   });
 
 updateData();
@@ -52,7 +50,6 @@ export default function App() {
   const onRefresh = () => {
     setIsFetching(true);
     DATA.splice(0, DATA.length);
-    CUR_PAGE = 0;
     fetchData();
   };
 
@@ -61,7 +58,7 @@ export default function App() {
   };
 
   const renderItem = ({item}: {item: character}) => (
-    <Item name={item.name.full} image={item.image.large} />
+    <Item name={item.name} image={item.image_large} />
   );
 
   return (
